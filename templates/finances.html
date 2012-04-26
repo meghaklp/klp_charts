@@ -1,0 +1,111 @@
+$def with (data)
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <title>School Profiles by MP/MLA Constituency</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" media="print" type="text/css" href="/css/print_style.css"/>
+    <style>
+    .google-visualization-table-table *  { font-size:small; }
+    </style> 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="/js/finances.js"></script>
+  </head>
+  <body onload="initialise($data)" >
+
+<div class="container container_12">
+<!--======================-->
+    <div class="clearheader">&nbsp;</div>
+    <div class="grid_8"> 
+    	<div id="constname"></div>
+    </div>
+    <div class="grid_4">
+    <div id="reportdate" style='text-align:right; font-size:9pt'></div>
+    </div>
+<!------------------------->
+    <!--div class="clear">&nbsp;</div>
+    <div class="hr"><hr></hr></div>
+    <div class="grid_12"> 
+    </div--> 
+<!------------------------->
+    <div class="clear">&nbsp;</div>
+    <div class="grid_7">
+    	<div id="constinfo"></div>
+      <div id="hiddenip"></div>
+     	<div id="instcounts"></div>
+    </div> 
+    <div class="grid_5"> 
+    <h3 style='text-align:right'><div id="rephead"></div></h3>
+    </div>
+<!--======================-->
+    <div class="clear">&nbsp;</div>
+    <div class="hr"><hr/></div>
+    <div class="grid_12">
+    	<h2><div id='summaryhead'></div></h2>
+      <div id="intro_txt" style="text-align:justify"></div>
+    </div>
+<!------------------------->
+    <div class="clear">&nbsp;</div>
+    <div class="grid_6">
+      <div id="totalsch"></div>
+   </div>
+   <div class="grid_6">
+      <div id="summary_txt" style="text-align:justify"></div>
+      <div id="totalsch_tb"></div>
+   </div>
+<!--======================-->
+   <div class="clear">&nbsp;</div>
+   <div class="hr"><hr/></div>
+   <div class="grid_12">
+    	<h2><div id='tlmhead'></div></h2>
+   </div>
+<!------------------------->
+   <div class="clear">&nbsp;</div>
+   <div class="grid_6">
+      <div id="annualgrantsch"></div>
+   </div>
+   <div class="grid_6">
+      <div id="mntncgrantsch"></div>
+   </div>
+<!------------------------->
+   <div class="clear">&nbsp;</div>
+   <div class="grid_6">
+      <div id="annualgrantsch_tb"></div>
+   </div>
+   <div class="grid_6">
+      <div id="mntncgrantsch_tb"></div>
+   </div> 
+<!--======================-->
+   <div class="clear">&nbsp;</div>
+   <div class="grid_12">
+    	<!--h2><div id='annualhead'></div></h2-->
+    	<!--h2><div id='mntnchead'></div></h2-->
+      <div id="annual_txt" style="text-align:justify"></div>
+      <div id="tlm_txt" style="text-align:justify"></div>
+      <div id="mtnc_txt" style="text-align:justify"></div>
+   </div>
+<!--======================-->
+   <div class="clear">&nbsp;</div>
+   <div class="hr"><hr/></div>
+   <div class="grid_12">
+    <h2><div id="neighhead"></div></h2>
+   </div>
+   <div class="grid_5">
+      <div id="neighboursdata"></div>
+   </div>
+   <div class="grid_7">
+      <div id="neighboursdata_tb"></div>
+   </div>
+   <div class="grid_12">
+      <div id="neighbours_txt" style="text-align:justify"></div>
+   </div>
+<!--======================--> 
+    <div class="clear">&nbsp;</div>
+    <div class="hr"><hr/></div>
+    <div class="grid_12">
+      <div id="source_txt" style="text-align:left; font-size:8pt"></div>  
+    </div>
+
+</div><!--container-->
+  </body>
+</html> 

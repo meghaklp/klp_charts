@@ -1,0 +1,72 @@
+﻿01|Karnataka Learning Partnership|ಕರ್ನಾಟಕ ಕಲಿಕಾ ಸಹಭಾಗಿತ್ವ 
+2|MLA|ವಿದಾನ ಸಭಾ ಶಾಸಕರು
+3|MP|ಲೋಕ ಸಭಾ ಸದಸ್ಯರು
+4|Corporator|ನಗರ ಪಾಲಿಕೆಯ ಸದಸ್ಯರು
+5|Ward|ವಾರ್ಡ್
+6|Constituency |ಚುನಾವಣಾ ಕ್ಷೇತ್ರ
+7|Report|ವರದಿ
+8|Election Commission Code|ಚುನಾವಣೆ ಆಯೋಗದ ಸಂಕೇತ
+9|Elected Representative|ಚುನಾಯಿತ ಪ್ರತಿನಿಧಿ
+10|Political Affiliation|ರಾಜಕೀಯ  ಪಕ್ಷ 
+11|Number of Government Schools|ಸರ್ಕಾರಿ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ
+12|Number of Government Anganwadis|ಅಂಗನವಾಡಿಗಳ ಸಂಖ್ಯೆ
+13|School Demographics|ಸರ್ಕಾರಿ ಶಾಲಾ ವಿವರ
+14|Medium of Instruction: Government Schools|ಬೋಧನಾ ಮಾಧ್ಯಮ: ಸರ್ಕಾರಿ  ಶಾಲೆ
+15|Category Profile: Government Schools|ಪ್ರವರ್ಗದ ವಿವರ:ಸರ್ಕಾರಿ  ಶಾಲೆ
+16|Kannada Medium Schools|ಕನ್ನಡ  ಮಾಧ್ಯಮದ ಶಾಲೆ
+17|Tamil Medium Schools|ತಮಿಳು ಮಾಧ್ಯಮದ ಶಾಲೆ
+18|Urdu Medium Schools|ಉರ್ದು  ಮಾಧ್ಯಮದ ಶಾಲೆ
+19|English Medium Schools|ಇಂಗ್ಲೀಷ್  ಮಾಧ್ಯಮದ ಶಾಲೆ
+20|Telugu Medium Schools|ತೆಲುಗು ಮಾಧ್ಯಮದ ಶಾಲೆ
+21|Upper Primary Schools|ಹಿರಿಯ ಪ್ರಾಥಮಿಕ ಶಾಲೆ
+22|Model Primary Schools|ಮಾದರಿ  ಪ್ರಾಥಮಿಕ ಶಾಲೆ
+23|Lower Primary Schools|ಕಿರಿಯ  ಪ್ರಾಥಮಿಕ ಶಾಲೆ
+24|Gender Profile|ಲಿಂಗಾನುವಾರ ವಿವರ
+25|Gender Profile: Anganwadis|ಲಿಂಗಾನುವಾರ ವಿವರ: ಅಂಗನವಾಡಿ
+26|Gender Profile: Government Schools|ಲಿಂಗಾನುವಾರ ವಿವರ: ಸರ್ಕಾರಿ  ಶಾಲೆ
+27|Number of Boys|ಗಂಡು ಮಕ್ಕಳ ಸಂಖ್ಯೆ
+28|Number of Girls|ಹೆಣ್ಣು ಮಕ್ಕಳ ಸಂಖ್ಯೆ
+29|Preschool Demographics|ಅಂಗನವಾಡಿ ವಿವರ
+30|Average Enrollment: Government Schools|ಸರಾಸರಿ ದಾಖಲಾತಿ : ಸರ್ಕಾರಿ ಶಾಲೆ
+31|Average Enrollment: Anganwadis|ಸರಾಸರಿ ದಾಖಲಾತಿ: ಅಂಗನವಾಡಿ
+32|Average Enrollment in an Anganwadi|ಸರಾಸರಿ ದಾಖಲಾತಿ ಅಂಗನವಾಡಿಗಳಲ್ಲಿ
+33|Average Enrollment in an Upper Primary School|ಸರಾಸರಿ ದಾಖಲಾತಿ  ಸರ್ಕಾರಿ ಹಿರಿಯ ಪ್ರಾಮಿಕ ಶಾಲೆ
+34|Average Enrollment in a Lower Primary School|ಸರಾಸರಿ ದಾಖಲಾತಿ  ಸರ್ಕಾರಿ ಕಿರಿಯ ಪ್ರಾಮಿಕ ಶಾಲೆ
+35|Average Enrollment in a Model Primary School|ಸರಾಸರಿ ದಾಖಲಾತಿ  ಸರ್ಕಾರಿ ಮಾದರಿ ಪ್ರಾಮಿಕ ಶಾಲೆ
+36|Language Profile|ಸರ್ಕಾರಿ ಶಾಲೆಗಳಲ್ಲಿ ಭಾಷಾ ವಿವರ
+37|Language Profile: Government Schools|ಮಾತೃ ಭಾಷಾ ವಿವರ: ಸರ್ಕಾರಿ ಶಾಲೆ
+38|Language Profile: Anganwadis|ಮಾತೃ  ಭಾಷಾ ವಿವರ: ಅಂಗನವಾಡಿ
+39|Number of students who speak|ಭಾಷಾವಾರು ಮಾತನಾಡುವ ಮಕ್ಕಳ ವಿವರ
+40|Neighbours Constituency Profile|ನೆರೆಹೊರೆಯ ವಿಧಾನ ಸಭಾ ಕ್ಷೇತ್ರದ ಶಾಲಾ ಮತ್ತು ಅಂಗನವಾಡಿ ವಿವರ
+41|Comparison Of Number of Government Schools|ಕ್ಷೇತ್ರವಾರು ಸರ್ಕಾರಿ ಶಾಲೆ ವಿವರ
+42|Comparison Of Number of Anganwadis|ಕ್ಷೇತ್ರವಾರು ಅಂಗನವಾಡಿ ವಿವರ
+43|Comparsion of Gender Ratio: Government Schools|ಸರ್ಕಾರಿ ಶಾಲೆಗಳ ಲಿಂಗಾನುಪಾತ ಹೋಲಿಕೆ
+44|Comparison of Gender Ratio: Anganwadis|ಅಂಗನವಾಡಿಗಳ  ಲಿಂಗಾನುಪಾತದ ಹೋಲಿಕೆ
+45|School Category|ಶಾಲೆ  ಪ್ರವರ್ಗ
+46|Average Enrollment|ಸರಾಸರಿ ದಾಖಲಾತಿ
+47|Preschool Category|ಅಂಗನವಾಡಿ ಶಾಲೆ  ಪ್ರವರ್ಗ 
+48|Medium of Instruction|ಬೋಧನಾ ಮಾಧ್ಯಮ
+49|Number of Students|ಮಕ್ಕಳ ಸಂಖ್ಯೆ
+50| Medium Schools| ಮಾಧ್ಯಮದ ಶಾಲೆ
+51|Average Enrollment in |ಸರಾಸರಿ ದಾಖಲಾತಿ  ಸರ್ಕಾರಿ
+52| Schools| ಶಾಲೆ
+53|Number of |
+54| Schools| ಶಾಲೆಗಳ ಸಂಖ್ಯೆ
+55|Gender Ratio|ಲಿಂಗಾನುಪಾತ
+56|Karnataka Learning Partnership|ಕರ್ನಾಟಕ ಕಲಿಕಾ ಸಹಭಾಗಿತ್ವ 
+57|Deviation from best gender ratio assumed as 1|ಊಹಿಸಲಾಗಿದ ಉತ್ತಮ ಲಿಂಗ ಅನುಪಾತ 1 ರಿಂದ ಮಾರ್ಗಾಂತರ
+58|Boys|ಹುಡುಗರ ಸಂಖ್ಯೆ  
+59|Girls|ಹುಡುಗಿಯರ ಸಂಖ್ಯೆ 
+60|Information is not available.|ಮಾಹಿತಿ ಲಭ್ಯವಿಲ್ಲ .
+61|Source: Information pertaining to MP/MLA Constituencies has been obtained from concerned Block Education Offices.|ಮೂಲ: ವಿಧಾನಸಭಾ ಹಾಗೂ ಲೋಕಸಭಾ ಕ್ಷೇತ್ರಗಳ ವ್ಯಾಪ್ತಿಗೆ ಬರುವ ಶಾಲಾ ಮತ್ತು ಅಂಗನವಾಡಿಗಳ, ಮಾಹಿತಿಯನ್ನು ಆಯಾ ವಲಯ ಶಿಕ್ಷಣಾಧಿಕಾರಿಗಳ ಕಛೇರಿಯಿಂದ ಪಡೆಯಲಾಗಿದೆ.
+62|Comparison of Annual School Grant|ವಾರ್ಷಿಕ  ಶಾಲಾ ಅನುದಾನದ ಹೋಲಿಕೆ
+63|School Grant (SG) breakdown by Category|ಪ್ರವರ್ಗಾನುವರ ಶಾಲಾ  ಅನುದಾನದ  ವಿವರ
+64|School Maintenance Grant (SMG) breakdown|ಶಾಲಾ  ನಿರ್ವಹಣೆ  ಅನುದಾನದ  ವಿವರ
+65|Annual School Grant breakdown|ವಾರ್ಷಿಕ  ಶಾಲಾ ಅನುದಾನದ ವಿವರ
+66|Allocation Summary|ಅನುದಾನ  ಹಂಚಿಕೆಯ ಸಾರಾಂಶ
+67|Allocation Breakdown|ಅನುದಾನ  ಹಂಚಿಕೆಯ ವಿವರ
+68|Allocation in Neighbours Constituencies|ನೆರೆಹೊರೆಯ ವಿಧಾನ ಸಭಾ ಕ್ಷೇತ್ರಗಳ  ಅನುದಾನ  ಹಂಚಿಕೆಯ ವಿವರ
+69|Grant Amount|ಅನುದಾನದ  ಮೊತ್ತ 
+70|Number of Classrooms|ಪಾಠದ ಕೊಠಡಿಗಳ ಸಂಖ್ಯೆ 
+71|Grant Type|ಅನುದಾನದ  ವರ್ಗ
+72|Number of Schools in this analysis|ವರದಿಗೆ ಒಳಪಟ್ಟ ಶಾಲೆಗಳ ಸಂಖ್ಯೆ
