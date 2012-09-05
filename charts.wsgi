@@ -21,6 +21,7 @@ import Utility.KLPDB
 import QueryConstants
 import DemographicsUtil
 import FinancesUtil
+import InfraUtil
 
 connection = Utility.KLPDB.getConnection()
 cursor = connection.cursor()
@@ -30,6 +31,7 @@ urls = (
      '/charts/(.*)/(.*)/(.*)/(.*)','Charts',
      '/demographics','Demographics',
      '/finances','Finances',
+     '/infrastructure','Infrastructure',
 )
 
 application = web.application(urls,globals()).wsgifunc()
@@ -38,40 +40,6 @@ class Charts:
   
   """Returns the main template"""
   def GET(self,searchby,constid,rep_lang,rep_type):
-#  def GET(self,searchby):
-#   return self.makeForm()
-  
-#  def makeForm(self):
-#    web.header('Content-Type','text/html; charset=utf-8')
-#
-#    cursor.execute(QueryConstants.getDictionary()['get_mp_const'])
-#    result = cursor.fetchall()
-#    mp_dropdown = []
-#    for row in result:
-#      if row[0].strip() != '':
-#        mp_dropdown.append((row[1],row[0]))
-
-#    cursor.execute(QueryConstants.getDictionary()['get_mla_const'])
-#    result = cursor.fetchall()
-#    mla_dropdown = []
-#    for row in result:
-#      if row[0].strip() != '':
-#        mla_dropdown.append((row[1],row[0]))
-
-#    self.f =form.Form(
-#      form.Radio('searchby',[(1,'MP Only'),(2,'MLA Only')], description="I need a report for a "),
-#      form.Radio('rep_lang',[(1,'bilingual report - English & Kannada'),(2,'report in English')], description="I need a "),
-#      form.Radio('rep_type',[(1,'Demographics'),(2,'Financial Allocation')], description="based on "),
-#      form.Dropdown("mplist", mp_dropdown, description="MP constituency:"),
-#      form.Dropdown("mlalist", mla_dropdown, description="MLA constituency:"),
-#      form.Button("submit", type="submit", description="Get me the graphs!")
-#    )
-#    return render.index(self.f)
-
-#  def POST(self): 
-
-#    i = web.input()
-#    if i['searchby'][1]=='1':
     if searchby =='1':
       constype = 1
     else:
@@ -86,7 +54,7 @@ class Charts:
       demographics = Demographics()
       queries = ['schcount','preschcount']
       data.update(util.countsTable(constype,[constid],queries))
-      data.update(demographics.generateData(constype,[constid],lang))
+      data.update(demographics.generateData(constype,[constid]))
       data.update({'transdict':util.getTranslations(lang)})
       data.update(DemographicsUtil.getDemographicsText(data,lang))
       web.header('Content-Type','text/html; charset=utf-8')
@@ -95,19 +63,237 @@ class Charts:
       finances = Finances()
       queries = ['abs_schcount','fin_schcount']
       data.update(util.countsTable(constype,[constid],queries))
-      data.update(finances.generateData(constype,[constid],lang))
+      data.update(finances.generateData(constype,[constid]))
       data.update({'transdict':util.getTranslations(lang)})
       data.update(FinancesUtil.getFinancesText(data,lang))
       web.header('Content-Type','text/html; charset=utf-8')
       return render.finances(simplejson.dumps(data,sort_keys=True))
+    elif rep_type == '3':
+      infra = Infrastructure()
+      queries = ['abs_schcount','abs_preschcount']
+      data.update(util.countsTable(constype,[constid],queries))
+      data.update(infra.generateData(constype,[constid]))
+      data.update({'transdict':util.getTranslations(lang)})
+      data.update(InfraUtil.getInfraText(data,lang))
+      web.header('Content-Type','text/html; charset=utf-8')
+      return render.infrastructure(simplejson.dumps(data,sort_keys=True))
     else:
-      #return self.makeForm()
       pass
 
+class Infrastructure:
+
+  def generateData(self,cons_type, constid):
+    data = {}
+    avgdata = {}
+    avgdata = self.getAverages()
+
+    if cons_type == 1:
+      data["const_type"]='MP'
+      constype = "mp"
+    else:
+      data["const_type"]='MLA'
+      constype = "mla"
+    data["const_name"]=str(constid[0])
+
+    data.update(self.constituencyData(constype,constid))
+    data.update(self.getAngInfra(constype,constid,avgdata))
+    data.update(self.getSchoolInfra(constype,constid,avgdata))
+    print data.keys()
+    #data.update(self.getLibInfra(constype,constid))
+    return data
+
+  def getAverages(self):
+    data = {}
+    querykeys = ['get_dise_count_blore','get_sch_count_blore','get_ai_count_blore','get_ang_count_blore']
+    for key in querykeys:
+      cursor.execute(QueryConstants.getDictionary("common_queries")[key])
+      result = cursor.fetchall()
+      for row in result:
+        data[key.replace("get_","")] = row[0]
+      connection.commit()
+    querykeys = ['get_dise_avg_blore','get_ai_avg_blore']
+    for key in querykeys:
+      tabledata = {}
+      cursor.execute(QueryConstants.getDictionary("common_queries")[key])
+      result = cursor.fetchall()
+      for row in result:
+        if 'dise' in key:
+          tabledata[row[0]] = str(int(row[1]) * 100/int(data['dise_count_blore']))
+        else:
+          tabledata[row[0]] = str(int(row[1]) * 100/int(data['ai_count_blore']))
+      data[key.replace("get_","")] = tabledata
+      connection.commit()
+    return data
+
+  def getAngInfra(self,constype,constid,data):
+    tabledata = {}
+    
+    blore_count = data['ai_count_blore']
+    blore_infra = data['ai_avg_blore']
+
+    querykey = 'infra_count'
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+     infra_count = row[0]
+    data[querykey] = infra_count
+    connection.commit()
+
+    querykey = 'ang_infra' 
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+      if row[0] in ['waste_basket','toilet','toilet_roof','akshara_kits']:
+        pass
+      else:
+        if row[2] in tabledata:
+          tabledata[row[2]][row[0]]=[str(int(row[1])*100/int(infra_count)),str(blore_infra[row[0]])]
+        else:
+          tabledata[row[2]] = {row[0]:[str(int(row[1])*100/int(infra_count)),str(blore_infra[row[0]])]}
+    data[querykey] = tabledata
+    connection.commit()
+    return data
+
+  def getSchoolInfra(self,constype,constid,data):
+    tabledata = {}
+
+    blore_count = data['dise_count_blore']
+    blore_dise = data['dise_avg_blore']
+
+    querykey = 'dise_count'
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+     dise_count = row[0]
+    data[querykey] = dise_count
+    connection.commit()
+
+    querykey = 'dise_facility' 
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+      if row[0] in ['toilet_all']:
+        pass
+      else:
+        if row[2] in tabledata:
+          tabledata[row[2]][row[0]]=[str(int(row[1])*100/int(dise_count)),str(blore_dise[row[0]])]
+        else:
+          tabledata[row[2]] = {row[0]:[str(int(row[1])*100/int(dise_count)),str(blore_dise[row[0]])]}
+    data[querykey] = tabledata
+    connection.commit()
+    return data
+
+  def getLibInfra(self,constype,constid):
+    data = {}
+    tabledata = {}
+    querykey = 'lib_count' 
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+      lib_count = row[0]
+    data[querykey] = lib_count
+    connection.commit()
+    querykey = 'lib_status' 
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+      tabledata[row[0]] = row[1]
+    data[querykey] = tabledata
+    connection.commit()
+    tabledata = {}
+    querykey = 'lib_summary' 
+    cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],constid)
+    result = cursor.fetchall()
+    for row in result:
+      tabledata['total_books'] = row[0]
+      tabledata['total_racks'] = row[1]
+      tabledata['total_tables'] = row[2]
+      tabledata['total_chairs'] = row[3]
+      tabledata['total_comps'] = row[4]
+      tabledata['total_ups'] = row[5]
+    data[querykey] = tabledata
+    connection.commit()
+    return data
+
+  def neighboursData(self, neighbours, constype, constid):
+    data = {}
+    constype_str = constype
+    try:
+      querykey = 'neighbours_df_count'
+      cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],[tuple(neighbours)])
+      result = cursor.fetchall()
+      dise_count = {} 
+      for row in result:
+        dise_count[row[0]] = int(row[1])
+      data[querykey] = dise_count
+      connection.commit()
+
+      querykey = 'neighbours_ai_count'
+      cursor.execute(QueryConstants.getDictionary(constype)[constype + '_' + querykey],[tuple(neighbours)])
+      result = cursor.fetchall()
+      infra_count = {} 
+      for row in result:
+        infra_count[row[0]] = int(row[1])
+      data[querykey] = infra_count
+      connection.commit()
+
+      if len(neighbours) > 0:
+        crit='neighbours_'
+        query_keys = ['dise','anginfra']
+        for key in query_keys:
+          tabledata = {}
+          counts_dict = {}
+          if key == 'dise' :
+            counts_dict = dise_count
+          else:
+            counts_dict = infra_count
+          cursor.execute(QueryConstants.getDictionary(constype)[constype_str+'_'+crit+key], [tuple(neighbours)])
+          result = cursor.fetchall()
+          for row in result:
+            if row[1] in ['waste_basket','toilet','toilet_roof','akshara_kits','toilet_all']:
+              pass
+            else:
+              if row[0].strip() in tabledata.keys():
+                  tabledata[row[0].strip()][row[3] + '|' + row[1]] = int(row[2])*100/counts_dict[row[0].strip()]
+              else:
+                tabledata[row[0].strip()]={row[3]+'|'+ row[1]:int(row[2])*100/counts_dict[row[0].strip()]}
+
+          newtable = {}
+
+          for tabkey in tabledata.keys():
+            moddata = {}
+            moddata = tabledata[tabkey]
+            for each in moddata.keys():
+              if each in newtable.keys():
+                newtable[each][tabkey] = moddata[each] 
+              else:
+                newtable.update({ each:{tabkey:moddata[each]}})
+          data[crit+key] = newtable
+
+          connection.commit()
+
+      return data
+    except:
+      print 'Error occurred'
+      print "Unexpected error:", sys.exc_info()
+      traceback.print_exc(file=sys.stdout)
+      connection.rollback()
+      return None
+
+
+  def constituencyData(self,constype,constid):
+    data = {}
+    util = CommonUtil()
+    ret_data = util.constituencyData(constype,constid)
+    data.update(ret_data[0])
+    neighboursdata  = self.neighboursData(ret_data[1],ret_data[2],constid)
+    if neighboursdata:
+      data.update(neighboursdata)
+    return data
 
 class Finances:
 
-  def generateData(self,cons_type, constid,lang):
+  def generateData(self,cons_type, constid):
     data = {}
     if cons_type == 1:
       data["const_type"]='MP'
@@ -134,6 +320,7 @@ class Finances:
       tabledata['teacher_count'] = str(int(row[3])/int(row[2]))
     data[querykey] = tabledata
     data['total_tlm']=int(tabledata['grant_amount'])
+    connection.commit()
     return data
   
   def getAnnualGrant(self,constype,constid):
@@ -148,6 +335,7 @@ class Finances:
       total_grant = total_grant + int(row[4])
     data[querykey] = tabledata
     data['total_annual'] = total_grant
+    connection.commit()
     return data
    
   def getMaintenanceGrant(self,constype,constid):
@@ -162,6 +350,7 @@ class Finances:
       total_grant = total_grant + int(row[4])
     data[querykey] = tabledata
     data['total_mntc'] = total_grant
+    connection.commit()
     return data
 
   def constituencyData(self,constype,constid):
@@ -193,16 +382,18 @@ class Finances:
             else:
               tabledata[row[0].strip()]={key:row[3]}
       data['neighbours_grant'] = tabledata
+      connection.commit()
       return data
     except:
       print 'Error occurred'
       print "Unexpected error:", sys.exc_info()
       traceback.print_exc(file=sys.stdout)
+      connection.rollback()
       return None
 
 class Demographics:
 
-  def generateData(self,cons_type, constid,lang):
+  def generateData(self,cons_type, constid):
     data = {}
     if cons_type == 1:
       data["const_type"]='MP'
@@ -237,6 +428,7 @@ class Demographics:
         data[querykey+"_tb"]=chartdata
       else:
         data[querykey+"_hasdata"] = 0
+      connection.commit()
     return data
 
   def mtGraphs(self,constype,constid,qkeys):
@@ -267,6 +459,7 @@ class Demographics:
         data[querykey + "_ord_lst"] = order_lst 
       else:
         data[querykey + "_hasdata"] = 0
+      connection.commit()
     return data
 
   def pieGraphs(self,constype,constid,qkeys):
@@ -283,6 +476,7 @@ class Demographics:
         data[querykey + "_tb"] = tabledata
       else:
         data[querykey + "_hasdata"] = 0
+      connection.commit()
     return data
 
   def constituencyData(self,constype,constid):
@@ -306,16 +500,19 @@ class Demographics:
         result = cursor.fetchall()
         for row in result:
           neighbours_sch[row[0].strip()]={'schcount':str(row[1])}
-        
+        connection.commit()
+
         cursor.execute(QueryConstants.getDictionary(constype)[constype_str + '_neighbour_presch'], [tuple(neighbours)])
         result = cursor.fetchall()
         for row in result:
           neighbours_presch[row[0].strip()] = {'preschcount':str(row[1])}
-        
+        connection.commit()
+         
         cursor.execute(QueryConstants.getDictionary(constype)[constype_str + '_neighbour_gendsch'],[tuple(neighbours)])
         result = cursor.fetchall()
         for row in result:
           neighbours_sch[row[0].strip()][row[1].strip()] = str(row[2])
+        connection.commit()
         
         cursor.execute(QueryConstants.getDictionary(constype)[constype_str + '_neighbour_gendpresch'],[tuple(neighbours)])
         result = cursor.fetchall()
@@ -331,6 +528,9 @@ class Demographics:
           data["neighbours_presch"] = neighbours_presch          
         else:
           data["neighbours_presch_hasdata"] = 0
+        
+        connection.commit()
+
       else:
         data["neighbours_sch_hasdata"] = 0
         data["neighbours_presch_hasdata"] = 0
@@ -339,6 +539,7 @@ class Demographics:
     except:
       print "Unexpected error:", sys.exc_info()
       traceback.print_exc(file=sys.stdout)
+      connection.rollback()
       return None
 
 
@@ -366,10 +567,12 @@ class CommonUtil:
         if row[4] != None:
           neighbours = row[4].strip().split('|')
           neighbours.append(row[0])
+      connection.commit()
       return [data,neighbours,constype_str]
     except:
       print "Unexpected error:", sys.exc_info()
       traceback.print_exc(file=sys.stdout)
+      connection.rollback()
 
   def countsTable(self,cons_type,constid,qkeys):
     try:
@@ -384,12 +587,13 @@ class CommonUtil:
         result = cursor.fetchall()
         for row in result:
           tabledata[querykey] = str(row[0])
-      data["inst_counts"] = tabledata
-      print data
+      data["inst_counts"] =  tabledata
+      connection.commit()
       return data
     except:
       print "Unexpected error:", sys.exc_info()
       traceback.print_exc(file=sys.stdout)
+      connection.rollback()
       return None
 
   def getTranslations(self, lang):

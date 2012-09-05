@@ -32,7 +32,7 @@ function initialise(data)
   translations = info['transdict']
   now = new Date()
   document.getElementById("reportdate").innerHTML = now.toDateString();
-  document.getElementById("rephead").innerHTML = "<img src=\'../images/KLP_logo2.png\' width='130px' vertical-align='top' border=0 />" + '<br/>' + translations['H56'];
+  document.getElementById("rephead").innerHTML = "<img src=\'/images/KLP_logo2.png\' width='130px' vertical-align='top' border=0 />" + '<br/>' + translations['H56'];
   document.getElementById("summaryhead").innerHTML = translations['H66'];
   document.getElementById("tlmhead").innerHTML = translations['H67'];
   /*document.getElementById("annualhead").innerHTML = 'Allocation based on Category';//translations['H29'];

@@ -1,0 +1,118 @@
+$def with (data)
+<!DOCTYPE html>
+<html> 
+  <head> 
+    <title>School Profiles by MP/MLA Constituency</title>
+    <link type="text/css" rel="stylesheet" href="/css/style.css"/>
+    <link rel="stylesheet" media="print" type="text/css" href="/css/print_style.css"/>
+    <style>
+    .google-visualization-table-table *  { font-size:small; }
+    </style> 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="/js/infrastructure.js"></script>
+    <!--script type="text/javascript" src="/js/raphael-min.js"></script>
+    <script type="text/javascript">
+      //<![CDATA[ 
+      window.onload=function(){
+      $$(document).ready(function(){
+          var font = {font: '12px Helvetica, Arial'};
+          var fill = {fill: "hsb(120deg, .5, 1)"}
+          $$('tr th div').each(function (index, div){
+              R = Raphael($$(div).attr('id'), 20, 100);
+              R.text(4, 50, $$(div).find('span').text())
+                  .attr(font)
+                  .attr(fill)
+                  .rotate(-90, true);
+              $$(div).find('span').hide();
+          });
+      });
+      }//]]>  
+    </script-->
+
+  </head>
+  <body onload="initialise($data)" >
+
+<div class="container container_12">
+<!--======================-->
+    <div class="clearheader">&nbsp;</div>
+    <div class="grid_8"> 
+    	<div id="constname"></div>
+    </div>
+    <div class="grid_4">
+    <div id="reportdate" style='text-align:right; font-size:9pt'></div>
+    </div>
+<!------------------------->
+    <!--div class="clear">&nbsp;</div>
+    <div class="hr"><hr></hr></div>
+    <div class="grid_12"> 
+    </div--> 
+<!------------------------->
+    <div class="clear">&nbsp;</div>
+    <div class="grid_7">
+    	<div id="constinfo"></div>
+      <div id="hiddenip"></div>
+     	<div id="instcounts"></div>
+    </div> 
+    <div class="grid_5"> 
+    <h3 style='text-align:right'><div id="rephead"></div></h3>
+    </div>
+<!--======================-->
+    <div class="clear">&nbsp;</div>
+    <div class="hr"><hr/></div>
+    <div class="grid_12">
+      <div id="intro_txt" style="text-align:justify"></div>
+    </div>
+<!------------------------->
+    <div class="clear">&nbsp;</div>
+    <div class="grid_6" style="border-right:1px #FFCC00">
+    	<h2><div id='anghead'></div></h2>
+      <div id="ang_infra_txt" style="text-align:justify"></div>
+    </div>
+    <div class="grid_6">
+    	<h2><div id='schoolhead'></div></h2>
+      <div id="dise_facility_txt" style="text-align:justify"></div>
+    </div>
+<!------------------------->
+    <div class="clear">&nbsp;</div>
+    <div class="clear">&nbsp;</div>
+    <div class="clear">&nbsp;</div>
+    <div class="grid_6" style="border-right:1px #FFCC00">
+      <div id="ang_infra_tb" style="margin-left:30px"></div>
+    </div>
+    <div class="grid_6">
+      <div id="dise_facility_tb" style="margin-left:30px"></div>
+    </div>
+    <div class="grid_12">
+    	<!--h2><div id='notehead'></div></h2-->
+      <div id="note_txt" style="text-align:justify"></div>
+    </div>
+<!--======================-->
+   <div class="clearbreak">&nbsp;</div>
+   <div class="hr"><hr/></div>
+   <div class="grid_12">
+    <h2><div id="neighhead"></div></h2>
+   </div>
+   <div class="grid_12">
+      <div id="neighbours_txt" style="text-align:justify"></div>
+   </div>
+   <div class="clear">&nbsp;</div>
+   <div class="grid_12">
+    <div id="ai_comparison"></div>
+   </div>
+   <div class="clear">&nbsp;</div>
+   <div class="grid_12">
+    <div id="df_comparison"></div>
+   </div>
+   <div class="grid_12">
+      <div id="conclusion_txt" style="text-align:justify"></div>
+   </div>
+<!--======================--> 
+    <div class="clear">&nbsp;</div>
+    <div class="hr"><hr/></div>
+    <div class="grid_12">
+      <div id="source_txt" style="text-align:left; font-size:8pt"></div>  
+    </div>
+
+</div><!--container-->
+  </body>
+</html> 
